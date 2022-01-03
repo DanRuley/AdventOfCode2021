@@ -105,48 +105,43 @@ namespace AdventOfCode
         {
             Pair curr = start;
             HashSet<Pair> disallowed = new HashSet<Pair>();
-            Queue<Pair> searchStart = new Queue<Pair>();
             disallowed.Add(curr);
+
             while (curr.parent != null && ((left && curr.parent.left == curr) || (!left && curr.parent.right == curr)))
             {
                 disallowed.Add(curr.parent);
                 curr = curr.parent;
             }
-            while (curr != null)
-            {
-                curr = curr.parent;
-                if (curr != null)
-                    searchStart.Enqueue(curr);
-            }
 
-            while (searchStart.Count > 0)
+            curr = curr.parent;
+            if (curr != null)
+                start = curr;
+            else
+                return;
+
+            Stack<Pair> st = new Stack<Pair>();
+            st.Push(start);
+
+            while (st.Count > 0)
             {
-                start = searchStart.Dequeue();
-                Stack<Pair> st = new Stack<Pair>();
-                st.Push(start);
-                while (st.Count > 0)
+                curr = st.Pop();
+                if (disallowed.Contains(curr))
+                    continue;
+                if (curr.leaf)
                 {
-                    curr = st.Pop();
-                    if (disallowed.Contains(curr))
-                        continue;
-                    if (curr.leaf)
-                    {
-                        curr.val += val;
-                        return;
-                    }
-                    if (left)
-                    {
-                        st.Push(curr.left);
-                        st.Push(curr.right);
-                    }
-                    else
-                    {
-                        st.Push(curr.right);
-                        st.Push(curr.left);
-                    }
-                    disallowed.Add(curr);
+                    curr.val += val;
+                    return;
                 }
-                disallowed.Add(start);
+                if (left)
+                {
+                    st.Push(curr.left);
+                    st.Push(curr.right);
+                }
+                else
+                {
+                    st.Push(curr.right);
+                    st.Push(curr.left);
+                }
             }
         }
 
@@ -155,10 +150,8 @@ namespace AdventOfCode
             List<Pair> snails = new List<Pair>();
             string line;
             using (StreamReader sr = new StreamReader(@"c:/users/drslc/downloads/input.txt"))
-            {
                 while ((line = sr.ReadLine()) != null)
                     snails.Add(parsePairFromString(line));
-            }
             return snails;
         }
 
