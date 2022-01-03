@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode
 {
@@ -65,7 +62,6 @@ namespace AdventOfCode
 
                 if (visited[curr.x, curr.y] == 1)
                     continue;
-
 
                 int v = board[curr.x, curr.y];
 

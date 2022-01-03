@@ -20,17 +20,17 @@ namespace AdventOfCode
             {7, "equal to"}
         };
 
-        public static void Main()
-        {
-            string hex = readLines();
-            string binary = parseHex(hex);
+        //public static void Main()
+        //{
+        //    string hex = readLines();
+        //    string binary = parseHex(hex);
 
-            long res = solve(binary);
+        //    long res = solve(binary);
 
-            Console.WriteLine("version sum: " + res);
+        //    Console.WriteLine("version sum: " + res);
 
-            Console.ReadLine();
-        }
+        //    Console.ReadLine();
+        //}
 
         private static long solve(string binary)
         {
